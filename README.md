@@ -1,9 +1,10 @@
-# Goal: 
+# Goal
 - login: https://authjs.dev/reference/sveltekit
 - save api def: vercel storage
 - list of existing api 
 - form to create new api def 
-
+- rate limit: https://upstash.com/blog/sveltekit-rate-limiting
+- data fecthing: tanstack query 
 
 # create-svelte
 
