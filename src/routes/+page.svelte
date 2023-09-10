@@ -1,3 +1,6 @@
+<script lang="ts">
+</script>
+
 <div class="bg-white">
 	<div class="relative isolate px-6 pt-14 lg:px-8">
 		<div
@@ -18,8 +21,9 @@
 					Set free-to-use API endpoints with SPECIFIED data schema within a minute!
 				</p>
 				<div class="mt-10 flex items-center justify-center gap-x-6">
+					<!-- TODO add actual login -->
 					<a
-						href="/dashboard"
+						href="/list"
 						class="rounded-md bg-indigo-600 px-7 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 						>Login</a
 					>
