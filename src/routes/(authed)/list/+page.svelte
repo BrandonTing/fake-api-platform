@@ -30,7 +30,7 @@
 
 <div class="pt-4 flex justify-between border-b">
 	<H2>Registered API List</H2>
-	<Button>Create</Button>
+	<a href="/new"><Button>Create</Button></a>
 </div>
 
 <table class="w-full mt-8">
