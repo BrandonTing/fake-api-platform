@@ -1,11 +1,8 @@
+import type { APISchema } from "$lib/schema"
 
 
-export type API = {
+export type API = APISchema & {
     id: string,
-    name: string,
-    description: string
-    path: string,
-    type: "POST" | "GET"
 }
 
 export const load = async () => {

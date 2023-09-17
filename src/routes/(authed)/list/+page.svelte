@@ -8,7 +8,7 @@
 	import ListTable from '$lib/components/list/table.svelte';
 </script>
 
-<div class="pt-4 flex justify-between border-b">
+<div class="flex justify-between border-b">
 	<H2>Registered API List</H2>
 	<a href="/new"><Button>Create</Button></a>
 </div>
