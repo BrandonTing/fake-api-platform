@@ -23,9 +23,9 @@
 				<div class="mt-10 flex items-center justify-center gap-x-6">
 					<!-- TODO add actual login -->
 					<a
-						href="/list"
+						href="/login/github"
 						class="rounded-md bg-indigo-600 px-7 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-						>Login</a
+						>Signin with github</a
 					>
 				</div>
 			</div>
