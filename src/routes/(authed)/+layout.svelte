@@ -14,13 +14,13 @@
 </script>
 
 <header class="py-4 px-3 text-center bg-slate-100 text-2xl relative mb-4">
-	<div class="max-w-[1280px] flex mx-auto justify-between item">
-		<div class="flex" />
+	<div class="max-w-[1280px] flex mx-auto justify-end item">
+		<!-- <div class="flex" />
 		<div class="gap-x-12 flex">
 			{#each navItems as item}
 				<NavItem nav={item} />
 			{/each}
-		</div>
+		</div> -->
 		<div class="justify-end flex">
 			<a href="/" class="text-sm font-semibold leading-6 text-gray-900 self-end"
 				>Log out <span aria-hidden="true">&rarr;</span></a

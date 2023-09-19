@@ -12,14 +12,14 @@ export const load = async () => {
             name: "api 1",
             description: "test description",
             path: "/test",
-            type: "POST"
+            method: "POST"
         },
         {
             id: "2",
             name: "api 2",
             description: "test description",
             path: "/test",
-            type: "POST"
+            method: "POST"
         }
 
     ] satisfies Array<API>

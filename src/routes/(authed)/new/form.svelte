@@ -9,9 +9,9 @@
 <Form.Root method="POST" {form} schema={apiSchema} let:config>
 	<Form.Field {config} name="name">
 		<Form.Item>
-			<Form.Label>Username</Form.Label>
+			<Form.Label>Name</Form.Label>
 			<Form.Input />
-			<Form.Description>This is your public display name.</Form.Description>
+			<Form.Description>This is the display name of this API.</Form.Description>
 			<Form.Validation />
 		</Form.Item>
 	</Form.Field>
@@ -19,16 +19,16 @@
 		<Form.Item>
 			<Form.Label>Path</Form.Label>
 			<Form.Input />
-			<Form.Description>This is your public display name.</Form.Description>
+			<Form.Description>Define the endpoint.</Form.Description>
 			<Form.Validation />
 		</Form.Item>
 	</Form.Field>
 
-	<Form.Field {config} name="type">
+	<Form.Field {config} name="method">
 		<Form.Item>
-			<Form.Label>Type</Form.Label>
+			<Form.Label>Method</Form.Label>
 			<Form.Input />
-			<Form.Description>This is your public display name.</Form.Description>
+			<Form.Description>POST/GET</Form.Description>
 			<Form.Validation />
 		</Form.Item>
 	</Form.Field>
@@ -37,10 +37,13 @@
 		<Form.Item>
 			<Form.Label>Description</Form.Label>
 			<Form.Input />
-			<Form.Description>This is your public display name.</Form.Description>
+			<Form.Description>Describe this API.</Form.Description>
 			<Form.Validation />
 		</Form.Item>
 	</Form.Field>
 
 	<Form.Button>Submit</Form.Button>
+	<a href="/list">
+		<Form.Button variant="secondary">Cancel</Form.Button>
+	</a>
 </Form.Root>

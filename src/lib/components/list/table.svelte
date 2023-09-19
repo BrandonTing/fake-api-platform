@@ -2,8 +2,8 @@
 	import { writable } from 'svelte/store';
 	import { createRender, createTable, Render, Subscribe } from 'svelte-headless-table';
 	import * as Table from '$lib/components/ui/table';
-	import type { API } from '$routes/(authed)/list/+page.server';
 	import Action from './action.svelte';
+	import type { API } from '../../../routes/(authed)/list/+page.server';
 	export let list: Array<API>;
 	let listStore = writable(list);
 	const table = createTable(listStore);
@@ -21,8 +21,8 @@
 			header: 'Path'
 		}),
 		table.column({
-			accessor: 'type',
-			header: 'Type'
+			accessor: 'method',
+			header: 'Method'
 		}),
 		table.column({
 			accessor: 'description',
