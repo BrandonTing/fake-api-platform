@@ -1,11 +1,10 @@
 import { dev } from "$app/environment";
-import { discordAuth } from "$lib/auth/lucia";
+import { githubAuth } from "$lib/auth/lucia";
 
 export const GET = async ({ cookies }) => {
-    const [url, state] = await discordAuth.getAuthorizationUrl();
-
+    const [url, state] = await githubAuth.getAuthorizationUrl();
     // store state
-    cookies.set("discord_oauth_state", state, {
+    cookies.set("github_oauth_state", state, {
         httpOnly: true,
         secure: !dev,
         path: "/",

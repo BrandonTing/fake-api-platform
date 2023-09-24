@@ -1,6 +1,6 @@
 // src/lib/server/lucia.ts
 import { lucia } from "lucia";
-import { web } from "lucia/middleware";
+import { sveltekit, } from "lucia/middleware";
 import { dev } from "$app/environment";
 import env from "$lib/utils/env";
 import { github } from "@lucia-auth/oauth/providers";
@@ -11,7 +11,7 @@ import { prisma } from "@lucia-auth/adapter-prisma";
 export const auth = lucia({
     adapter: prisma(client),
     env: dev ? "DEV" : "PROD",
-    middleware: web(),
+    middleware: sveltekit(),
     sessionCookie: {
         expires: false
     },

@@ -15,7 +15,6 @@ export const actions: Actions = {
                 form
             });
         }
-        console.log("here")
         return {
             form
         };

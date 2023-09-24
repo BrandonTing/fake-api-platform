@@ -2,7 +2,6 @@ import { z } from "zod";
 
 const envSchema = z.object({
     DATABASE_URL: z.string(),
-    DATABASE_AUTH_TOKEN: z.string(),
     GITHUB_OAUTH_CLIENTID: z.string(),
     GITHUB_OAUTH_CLIENT_SECRETS: z.string(),
 })

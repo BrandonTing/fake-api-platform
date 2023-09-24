@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import NavItem from '$lib/components/navItem.svelte';
 	import type { NavItemType } from '$lib/components/navItem.svelte';
 	const navItems = [
@@ -21,11 +22,11 @@
 				<NavItem nav={item} />
 			{/each}
 		</div> -->
-		<div class="justify-end flex">
-			<a href="/" class="text-sm font-semibold leading-6 text-gray-900 self-end"
-				>Log out <span aria-hidden="true">&rarr;</span></a
+		<form class="justify-end flex" method="post" action="/logout" use:enhance>
+			<button type="submit" class="text-sm font-semibold leading-6 text-gray-900 self-end"
+				>Log out <span aria-hidden="true">&rarr;</span></button
 			>
-		</div>
+		</form>
 	</div>
 </header>
 <main class="max-w-[1280px] mx-auto">

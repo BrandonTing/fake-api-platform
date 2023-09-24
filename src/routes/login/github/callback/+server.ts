@@ -1,8 +1,8 @@
-import { auth, discordAuth } from "$lib/auth/lucia.js";
+import { auth, githubAuth } from "$lib/auth/lucia.js";
 import { OAuthRequestError } from "@lucia-auth/oauth";
 
 export const GET = async ({ url, cookies, locals }) => {
-    const storedState = cookies.get("discord_oauth_state");
+    const storedState = cookies.get("github_oauth_state");
     const state = url.searchParams.get("state");
     const code = url.searchParams.get("code");
     // validate state
@@ -12,17 +12,15 @@ export const GET = async ({ url, cookies, locals }) => {
         });
     }
     try {
-        console.log(code)
-        const { getExistingUser, discordUser, createUser } =
-            await discordAuth.validateCallback(code);
-        console.log('wefwefe')
+        const { getExistingUser, githubUser, createUser } =
+            await githubAuth.validateCallback(code);
 
         const getUser = async () => {
             const existingUser = await getExistingUser();
             if (existingUser) return existingUser;
             const user = await createUser({
                 attributes: {
-                    username: discordUser.username
+                    username: githubUser.login
                 }
             });
             return user;
@@ -37,11 +35,10 @@ export const GET = async ({ url, cookies, locals }) => {
         return new Response(null, {
             status: 302,
             headers: {
-                Location: "/"
+                Location: "/list"
             }
         });
     } catch (e) {
-        console.log(e)
         if (e instanceof OAuthRequestError) {
             // invalid code
             return new Response(null, {
