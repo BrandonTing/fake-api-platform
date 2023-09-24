@@ -1,8 +1,4 @@
-import env from "$lib/utils/env";
-import { createClient } from "@libsql/client";
-import { drizzle } from 'drizzle-orm/libsql';
+import { PrismaClient } from '@prisma/client'
 
-const { DATABASE_AUTH_TOKEN, DATABASE_URL } = env
+export default new PrismaClient()
 
-export const client = createClient({ url: DATABASE_URL, authToken: DATABASE_AUTH_TOKEN });
-export default drizzle(client);

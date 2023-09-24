@@ -1,32 +1,31 @@
 // src/lib/server/lucia.ts
 import { lucia } from "lucia";
-import { sveltekit } from "lucia/middleware";
+import { web } from "lucia/middleware";
 import { dev } from "$app/environment";
-import { libsql } from "@lucia-auth/adapter-sqlite";
-import { client } from "$lib/db";
 import env from "$lib/utils/env";
-import { discord } from "@lucia-auth/oauth/providers";
+import { github } from "@lucia-auth/oauth/providers";
+import client from '$lib/db/index'
+import { prisma } from "@lucia-auth/adapter-prisma";
+
 
 export const auth = lucia({
-    adapter: libsql(client, {
-        user: "user",
-        key: "user_key",
-        session: "user_session"
-    }),
+    adapter: prisma(client),
     env: dev ? "DEV" : "PROD",
-    middleware: sveltekit(),
-
+    middleware: web(),
+    sessionCookie: {
+        expires: false
+    },
     getUserAttributes: (data) => {
         return {
-            discordUsername: data.username
+            githubUsername: data.username
         };
     }
 });
 
-export const discordAuth = discord(auth, {
-    clientId: env.DISCORD_OAUTH_CLIENTID,
-    clientSecret: env.DISCORD_OAUTH_CLIENT_SECRETS,
-    redirectUri: "http://localhost:5173/list"
+export type Auth = typeof auth;
+
+export const githubAuth = github(auth, {
+    clientId: env.GITHUB_OAUTH_CLIENTID,
+    clientSecret: env.GITHUB_OAUTH_CLIENT_SECRETS,
 });
 
-export type Auth = typeof auth;
