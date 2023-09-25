@@ -40,6 +40,8 @@ export const GET = async ({ url, cookies, locals }) => {
         });
     } catch (e) {
         if (e instanceof OAuthRequestError) {
+            console.log(e)
+
             // invalid code
             return new Response(null, {
                 status: 400

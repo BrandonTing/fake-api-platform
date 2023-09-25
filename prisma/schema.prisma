@@ -16,7 +16,7 @@ model User {
   username     String
   auth_session Session[]
   key          Key[]
-  api          API[]
+  api          Api[]
 }
 
 model Session {
@@ -38,7 +38,7 @@ model Key {
   @@index([user_id])
 }
 
-model API {
+model Api {
   id String @id @unique @default(uuid())
 
   method          String
