@@ -16,6 +16,7 @@ model User {
   username     String
   auth_session Session[]
   key          Key[]
+  api          API[]
 }
 
 model Session {
@@ -35,4 +36,18 @@ model Key {
   user            User    @relation(references: [id], fields: [user_id], onDelete: Cascade)
 
   @@index([user_id])
+}
+
+model API {
+  id String @id @unique @default(uuid())
+
+  method          String
+  path            String
+  input_schema    String
+  response_schema String
+  description     String
+  User            User?   @relation(fields: [userId], references: [id])
+  userId          String?
+
+  @@index([userId])
 }
