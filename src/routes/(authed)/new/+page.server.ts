@@ -24,8 +24,9 @@ export const actions: Actions = {
                     response_schema: "[]"
                 }
             })
+            console.log('wefwe')
 
-            return { form }
+            return { form, isSuccess: true }
         } catch (err) {
             console.log(err)
         }
