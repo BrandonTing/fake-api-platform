@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
-	import { enhance } from '$app/forms';
 	import { Input } from '$lib/components/ui/input';
 	import { Label } from '$lib/components/ui/label';
+	import { Textarea } from '$lib/components/ui/textarea';
 	import * as Select from '$lib/components/ui/select';
 
 	import type { Methods, apiSchema } from '$lib/schema';
@@ -11,7 +11,9 @@
 	import * as Form from '$lib/components/ui/form';
 	import Button from '$lib/components/ui/button/button.svelte';
 	export let formInstace: SuperValidated<typeof apiSchema>;
-	const { form, errors } = superForm(formInstace);
+	const { form, errors, enhance } = superForm(formInstace, {
+		dataType: 'json'
+	});
 
 	function insertNew(type: 'inputs' | 'outputs') {
 		form.update(($form) => {
@@ -26,7 +28,6 @@
 			$form.method = option.value as Methods;
 			return $form;
 		});
-		console.log($form);
 	}
 </script>
 
@@ -136,5 +137,9 @@
 			add new
 		</Button>
 	</div>
-	<Button type="submit">Submit</Button>
+	<div>
+		<Label for="description">Description</Label>
+		<Textarea name="description" placeholder="Describe the API" />
+	</div>
+	<Button class="mt-3" type="submit">Submit</Button>
 </form>
