@@ -1,4 +1,4 @@
-import db from "$lib/db";
+// import db from "$lib/db";
 import { apiSchema, } from "$lib/schema";
 import type { PageServerLoad, Actions } from "./$types";
 import { fail } from "@sveltejs/kit";
@@ -9,26 +9,28 @@ export const load: PageServerLoad = () => {
     };
 };
 export const actions: Actions = {
-    default: async (event) => {
-        const form = await superValidate(event, apiSchema);
-        if (!form.valid) {
-            return fail(400, {
-                form
-            });
-        }
+    default: async ({ request }) => {
         try {
-            await db.api.create({
-                data: {
-                    ...form.data,
-                    input_schema: "[]",
-                    response_schema: "[]"
-                }
-            })
-            console.log('wefwe')
+            const form = await superValidate(request, apiSchema);
+            console.log(form)
+            if (!form.valid) {
+                return fail(400, {
+                    form
+                });
+            }
+            // await db.api.create({
+            //     data: {
+            //         ...form.data,
+            //         input_schema: "[]",
+            //         response_schema: "[]"
+            //     }
+            // })  
+            console.log(form)
 
             return { form, isSuccess: true }
         } catch (err) {
             console.log(err)
+            return { isSuccess: false }
         }
     },
 };

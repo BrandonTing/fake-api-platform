@@ -29,6 +29,6 @@
 		</form>
 	</div>
 </header>
-<main class="max-w-[1280px] mx-auto">
+<main class="max-w-[1280px] mx-auto px-5">
 	<slot />
 </main>
