@@ -5,22 +5,18 @@
 	import { Textarea } from '$lib/components/ui/textarea';
 	import * as Select from '$lib/components/ui/select';
 
-	import type { Methods, apiSchema } from '$lib/schema';
 	import type { SuperValidated } from 'sveltekit-superforms';
 	import { superForm } from 'sveltekit-superforms/client';
-	import * as Form from '$lib/components/ui/form';
 	import Button from '$lib/components/ui/button/button.svelte';
+	import TextInput from './textInput.svelte';
+	import type { Methods, apiSchema } from '$lib/schema';
+	import TypeSelect from './typeSelect.svelte';
+	import AddNewButton from './addNewButton.svelte';
+	import ErrorMessage from './errorMessage.svelte';
 	export let formInstace: SuperValidated<typeof apiSchema>;
 	const { form, errors, enhance } = superForm(formInstace, {
 		dataType: 'json'
 	});
-
-	function insertNew(type: 'inputs' | 'outputs') {
-		form.update(($form) => {
-			$form[type] = [...$form[type], { key: '', type: '' }];
-			return $form;
-		});
-	}
 
 	function onMehodChange(option?: { value: unknown }) {
 		if (!option) return;
@@ -32,20 +28,26 @@
 </script>
 
 <form method="POST" use:enhance>
-	<div>
-		<Label for="name">Name</Label>
-		<Input type="text" id="name" name="name" placeholder="Give this API a name!" />
-		<p class="text-sm text-muted-foreground">Provide a name to identify the API</p>
-	</div>
-	<div>
-		<Label for="path">Path</Label>
-		<Input type="text" id="path" name="path" placeholder="/unique/endpoint" />
-		<p class="text-sm text-muted-foreground">Provide a UNIQUE endpoint for your API</p>
-	</div>
+	<TextInput
+		label="Name"
+		name="name"
+		placeholder="Give this API a name!"
+		description="Provide a name to identify the API"
+		errorMessage={$errors.name}
+		{form}
+	/>
+	<TextInput
+		label="Path"
+		name="path"
+		placeholder="/unique/endpoint"
+		description="Provide a UNIQUE endpoint for your API"
+		errorMessage={$errors.path}
+		{form}
+	/>
 	<div>
 		<Label for="method">Method</Label>
 		<Select.Root onSelectedChange={onMehodChange}>
-			<Select.Trigger class="w-[180px]">
+			<Select.Trigger>
 				<Select.Value placeholder="Choose Mehod" />
 			</Select.Trigger>
 			<Select.Content>
@@ -54,6 +56,7 @@
 			</Select.Content>
 			<Select.Input name="method" bind:value={$form.method} />
 		</Select.Root>
+		<ErrorMessage errorMessage={$errors.method} />
 	</div>
 	<div>
 		<Label for="inputs">Inputs</Label>
@@ -69,32 +72,21 @@
 						/>
 					</div>
 					<div class="flex-1">
-						<Label class="text-zinc-500">type</Label>
-						<Input data-invalkey={$errors.inputs?.[i]?.type} bind:value={$form.inputs[i].type} />
+						<TypeSelect
+							parentName="inputs"
+							index={i}
+							label="Type"
+							name="type"
+							placeholder="Select type of property"
+							{form}
+						/>
 					</div>
 				</div>
-				{#if $errors.inputs?.[i]?.key}
-					<br />
-					<span class="invalkey inline-block">{$errors.inputs[i].key}</span>
-				{/if}
-				{#if $errors.inputs?.[i]?.type}
-					<br />
-					<span class="invalkey">{$errors.inputs[i].type}</span>
-				{/if}
+				<ErrorMessage errorMessage={$errors.inputs?.[i]?.key} />
+				<ErrorMessage errorMessage={$errors.inputs?.[i]?.type} />
 			</div>
 		{/each}
-		<Button
-			class="w-full my-1"
-			variant="secondary"
-			size="sm"
-			type="button"
-			on:click={() => {
-				insertNew('inputs');
-			}}
-		>
-			<Icon icon="ic:baseline-plus" />
-			add new
-		</Button>
+		<AddNewButton {form} type="inputs" />
 	</div>
 	<div>
 		<Label for="ontputs">Outputs</Label>
@@ -110,36 +102,25 @@
 						/>
 					</div>
 					<div class="flex-1">
-						<Label class="text-zinc-500">type</Label>
-						<Input data-invalkey={$errors.outputs?.[i]?.type} bind:value={$form.outputs[i].type} />
+						<TypeSelect
+							parentName="outputs"
+							index={i}
+							label="Type"
+							name="type"
+							placeholder="Select type of property"
+							{form}
+						/>
 					</div>
 				</div>
-				{#if $errors.outputs?.[i]?.key}
-					<br />
-					<span class="invalkey">{$errors.outputs[i].key}</span>
-				{/if}
-				{#if $errors.outputs?.[i]?.type}
-					<br />
-					<span class="invalkey">{$errors.outputs[i].type}</span>
-				{/if}
+				<ErrorMessage errorMessage={$errors.outputs?.[i]?.key} />
+				<ErrorMessage errorMessage={$errors.outputs?.[i]?.type} />
 			</div>
 		{/each}
-		<Button
-			class="w-full my-1"
-			variant="secondary"
-			size="sm"
-			type="button"
-			on:click={() => {
-				insertNew('outputs');
-			}}
-		>
-			<Icon icon="ic:baseline-plus" />
-			add new
-		</Button>
+		<AddNewButton {form} type="outputs" />
 	</div>
 	<div>
 		<Label for="description">Description</Label>
-		<Textarea name="description" placeholder="Describe the API" />
+		<Textarea name="description" placeholder="Describe the API" bind:value={$form.description} />
 	</div>
 	<Button class="mt-3" type="submit">Submit</Button>
 </form>
