@@ -59,64 +59,60 @@
 		<ErrorMessage errorMessage={$errors.method} />
 	</div>
 	<div>
-		<Label for="inputs">Inputs</Label>
-		{#each $form.inputs as _, i}
-			<div>
-				<div class="flex gap-2">
-					<div class="flex-1">
-						<Label class="text-zinc-500">key</Label>
-						<Input
-							type="text"
-							data-invalkey={$errors.inputs?.[i]?.key}
-							bind:value={$form.inputs[i].key}
-						/>
-					</div>
-					<div class="flex-1">
-						<TypeSelect
-							parentName="inputs"
-							index={i}
-							label="Type"
-							name="type"
-							placeholder="Select type of property"
-							{form}
-						/>
-					</div>
+		<Label for="request">Request</Label>
+		{#each $form.request as _, i}
+			<div class="flex gap-2">
+				<div class="flex-1">
+					<Label class="text-zinc-500">key</Label>
+					<Input
+						type="text"
+						data-invalkey={$errors.request?.[i]?.key}
+						bind:value={$form.request[i].key}
+					/>
+					<ErrorMessage errorMessage={$errors.request?.[i]?.key} />
 				</div>
-				<ErrorMessage errorMessage={$errors.inputs?.[i]?.key} />
-				<ErrorMessage errorMessage={$errors.inputs?.[i]?.type} />
+				<div class="flex-1">
+					<TypeSelect
+						parentName="request"
+						index={i}
+						label="Type"
+						name="type"
+						placeholder="Select type of property"
+						{form}
+					/>
+					<ErrorMessage errorMessage={$errors.request?.[i]?.type} />
+				</div>
 			</div>
 		{/each}
-		<AddNewButton {form} type="inputs" />
+		<AddNewButton {form} type="request" />
 	</div>
 	<div>
-		<Label for="ontputs">Outputs</Label>
-		{#each $form.outputs as _, i}
-			<div>
-				<div class="flex gap-2">
-					<div class="flex-1">
-						<Label class="text-zinc-500">key</Label>
-						<Input
-							type="text"
-							data-invalkey={$errors.outputs?.[i]?.key}
-							bind:value={$form.outputs[i].key}
-						/>
-					</div>
-					<div class="flex-1">
-						<TypeSelect
-							parentName="outputs"
-							index={i}
-							label="Type"
-							name="type"
-							placeholder="Select type of property"
-							{form}
-						/>
-					</div>
+		<Label for="response">Response</Label>
+		{#each $form.response as _, i}
+			<div class="flex gap-2">
+				<div class="flex-1">
+					<Label class="text-zinc-500">key</Label>
+					<Input
+						type="text"
+						data-invalkey={$errors.response?.[i]?.key}
+						bind:value={$form.response[i].key}
+					/>
+					<ErrorMessage errorMessage={$errors.response?.[i]?.key} />
 				</div>
-				<ErrorMessage errorMessage={$errors.outputs?.[i]?.key} />
-				<ErrorMessage errorMessage={$errors.outputs?.[i]?.type} />
+				<div class="flex-1">
+					<TypeSelect
+						parentName="response"
+						index={i}
+						label="Type"
+						name="type"
+						placeholder="Select type of property"
+						{form}
+					/>
+					<ErrorMessage errorMessage={$errors.response?.[i]?.type} />
+				</div>
 			</div>
 		{/each}
-		<AddNewButton {form} type="outputs" />
+		<AddNewButton {form} type="response" />
 	</div>
 	<div>
 		<Label for="description">Description</Label>

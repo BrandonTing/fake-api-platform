@@ -43,7 +43,7 @@ model Api {
   name            String
   method          String
   path            String
-  input_schema    String
+  request_schema  String
   response_schema String
   description     String
   User            User?   @relation(fields: [userId], references: [id])

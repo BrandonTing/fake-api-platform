@@ -5,7 +5,7 @@
 	import type { SuperForm } from 'sveltekit-superforms/client';
 
 	export let name: string;
-	export let parentName: 'inputs' | 'outputs';
+	export let parentName: 'request' | 'response';
 	export let index: number;
 	export let label: string;
 	export let placeholder: string;

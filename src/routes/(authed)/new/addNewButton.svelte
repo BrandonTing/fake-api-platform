@@ -5,7 +5,7 @@
 	import type { SuperForm } from 'sveltekit-superforms/client';
 
 	export let form: SuperForm<typeof apiSchema>['form'];
-	export let type: 'inputs' | 'outputs';
+	export let type: 'request' | 'response';
 	function insertNew() {
 		form.update(($form) => {
 			$form[type] = [...$form[type], { key: '', type: 'string' }];
