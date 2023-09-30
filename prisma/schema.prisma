@@ -39,15 +39,29 @@ model Key {
 }
 
 model Api {
-  id              String  @id @unique @default(uuid())
-  name            String
-  method          String
-  path            String
-  request_schema  String
-  response_schema String
-  description     String
-  User            User?   @relation(fields: [userId], references: [id])
-  userId          String?
+  id          String   @id @unique @default(uuid())
+  name        String
+  method      String
+  path        String
+  description String
+  User        User?    @relation(fields: [userId], references: [id])
+  userId      String?
+  schemas     Schema[]
 
   @@index([userId])
+}
+
+model Schema {
+  id       String  @id @unique @default(uuid())
+  key      String
+  type     String
+  min      Int?
+  max      Int?
+  required Boolean @default(false)
+  usage    String
+  Api      Api?    @relation(fields: [apiId], references: [id])
+
+  apiId String?
+
+  @@index([apiId])
 }

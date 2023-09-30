@@ -1,16 +1,16 @@
 // import db from "$lib/db";
 import db from "$lib/db";
-import { apiSchema, buildSchema, } from "$lib/schema";
+import { apiSchema, } from "$lib/schema";
 import type { PageServerLoad, Actions } from "./$types";
 import { fail, redirect } from "@sveltejs/kit";
 import { superValidate } from "sveltekit-superforms/server";
-import { zodToJsonSchema } from "zod-to-json-schema";
 
 export const load: PageServerLoad = () => {
     return {
         form: superValidate(apiSchema)
     };
 };
+
 export const actions: Actions = {
     default: async (event) => {
         try {
@@ -20,12 +20,25 @@ export const actions: Actions = {
                     form
                 });
             }
-            const { request, response, ...rest } = form.data
+            const { request, response, ...rest } = form.data;
             await db.api.create({
                 data: {
                     ...rest,
-                    request_schema: JSON.stringify(zodToJsonSchema(buildSchema(request))),
-                    response_schema: JSON.stringify(zodToJsonSchema(buildSchema(response))),
+                    schemas: {
+                        createMany: {
+                            data: request.map((res) => {
+                                return {
+                                    ...res,
+                                    usage: "request",
+                                }
+                            }).concat(response.map(res => {
+                                return {
+                                    ...res,
+                                    usage: "response"
+                                }
+                            }))
+                        }
+                    }
                 }
             })
 

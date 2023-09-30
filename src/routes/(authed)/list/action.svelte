@@ -1,7 +1,7 @@
 <script lang="ts">
-	import * as DropdownMenu from '../ui/dropdown-menu';
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import { MoreHorizontal } from 'lucide-svelte';
-	import Button from '../ui/button/button.svelte';
+	import Button from '$lib/components/ui/button/button.svelte';
 
 	export let id: string;
 	export let deleteHandler: (id: string) => void;
@@ -19,7 +19,7 @@
 			<DropdownMenu.Label>Actions</DropdownMenu.Label>
 		</DropdownMenu.Group>
 		<DropdownMenu.Separator />
-		<DropdownMenu.Item>Edit</DropdownMenu.Item>
+		<!-- <DropdownMenu.Item>Edit</DropdownMenu.Item> -->
 		<DropdownMenu.Item on:click={(e) => deleteHandler(id)}>Delete</DropdownMenu.Item>
 	</DropdownMenu.Content>
 </DropdownMenu.Root>

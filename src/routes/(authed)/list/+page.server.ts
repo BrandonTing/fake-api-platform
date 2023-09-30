@@ -1,38 +1,33 @@
-// import db from "$lib/db"
-import { convertToZodSchema, type APISchema } from "$lib/schema"
+import db from "$lib/db"
+import { apiSchema, } from "$lib/schema"
+import { z } from "zod"
 
+const schema = apiSchema.merge(z.object({
+    id: z.string()
+}))
 
-export type API = APISchema & {
-    id: string,
-}
+export type API = z.infer<typeof schema>
 
 export const load = async () => {
-    // const data = await db.api.findMany()
-    const jsonSchema = "{\"type\":\"object\",\"properties\":{\"eee\":{\"type\":\"string\",\"format\":\"date-time\"}},\"required\":[\"eee\"],\"additionalProperties\":false,\"$schema\":\"http://json-schema.org/draft-07/schema#\"}"
-    // console.log(data[-1]?.request_schema)
-    const zodSchema = convertToZodSchema(JSON.parse(jsonSchema));
-    zodSchema.safeParse({})
-    const list = [
-        {
-            id: "1",
-            name: "api 1",
-            description: "test description",
-            path: "/test",
-            method: "POST",
-            request: [],
-            response: []
-        },
-        {
-            id: "2",
-            name: "api 2",
-            description: "test description",
-            path: "/test",
-            method: "POST",
-            request: [],
-            response: []
+    console.log('load')
+    const data = await db.api.findMany({
+        include: {
+            schemas: true
+        }
+    })
+    const list = data.map(({ schemas, ...rest }) => {
+        const requestSchemas = schemas.filter(schema => schema.usage === "request")
+        const responseSchemas = schemas.filter(schema => schema.usage === "response")
+        const api = {
+            ...rest,
+            request: requestSchemas,
+            response: responseSchemas
         }
 
-    ] satisfies Array<API>
+        const parse = schema.safeParse(api)
+        if (!parse.success) return
+        return parse.data
+    }).filter(Boolean)
     return {
         list
     }

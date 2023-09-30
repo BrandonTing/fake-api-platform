@@ -5,7 +5,7 @@
 
 	export let data: PageData;
 
-	import ListTable from '$lib/components/list/table.svelte';
+	import ListTable from './table.svelte';
 </script>
 
 <div class="flex justify-between border-b">

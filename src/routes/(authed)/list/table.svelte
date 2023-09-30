@@ -7,8 +7,14 @@
 	export let list: Array<API>;
 	let listStore = writable(list);
 	const table = createTable(listStore);
-	function deleteAPIHandler(id: string) {
-		// TODO 之後call api delete，invalidate data
+	async function deleteAPIHandler(id: string) {
+		await fetch('/api/delete', {
+			method: 'POST',
+			body: JSON.stringify({ id }),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		});
 		listStore.update(() => $listStore.filter((item) => item.id !== id));
 	}
 	const columns = table.createColumns([
@@ -29,7 +35,7 @@
 			header: 'Description'
 		}),
 		table.column({
-			header: '',
+			header: 'Actions',
 			accessor: ({ id }) => id,
 			cell: (item) => createRender(Action, { id: item.value, deleteHandler: deleteAPIHandler })
 		})
